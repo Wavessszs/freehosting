@@ -24,12 +24,20 @@
 <body>
 
   <p id="change">Press this button below to change this word</p>
+  <p id="number">0</p>
   <button class="btn" onclick="changemessage()">Here</button>
+  <button class="btn" onclick="add()">increment</button>
 
   <script>
     function changemessage() {
       let newchange = "boldingcbato";
       document.getElementById("change").innerText = newchange;
+    }
+      let number = 0;
+    function add(){
+
+    number = number + 1;
+    document.getElementById("number").innerText = number;
     }
   </script>
 
