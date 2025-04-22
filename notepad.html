@@ -36,13 +36,13 @@
   <input type="text" placeholder="type here." id="worries">
   <button onclick="append()">ADD</button>
 
-  <table id="notesTable">
-    <thead>
-      <tr>
-        <th>Worry</th>
-      </tr>
-    </thead>
-    <tbody>
+    <table id="notesTable">
+      <thead>
+        <tr>
+          <th id="worryCount">Total worries: 0</th>
+        </tr>
+      </thead>
+      <tbody>
       <!-- Notes will appear here -->
     </tbody>
   </table>
@@ -63,6 +63,8 @@
         let newRow = tableBody.insertRow(tableBody.rows.length);
         let newCell = newRow.insertCell(0);
         newCell.innerText = inputtext;
+
+        document.getElementById("worryCount").innerText = "Total worries: " + notes.length;
 
         // Clear the input field after adding the note
         document.getElementById("worries").value = '';
