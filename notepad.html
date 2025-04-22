@@ -4,15 +4,18 @@
   <meta charset="UTF-8">
   <title>Dynamic Table</title>
   <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
     body{
-      background-color: #FFCBE1
+      background-color: #FFCBE1;
+      font-family: 'Schoolbell', cursive;
     }
     table {
       border-collapse: collapse;
       width: 60%;
       margin-top: 20px;
-      background-color: #F9E1A8
-      
+      background-color: #F9E1A8;
     }
     td, th {
       border: 1px solid #333;
@@ -20,18 +23,18 @@
       text-align: center;
     }
     .btn {
-            background-color:#DCCCEC;
-            color: white;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .btn:hover {
-            background-color: white;
-            color: #DCCCEC;
+      background-color:#DCCCEC;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: white;
+      color: #DCCCEC;
     }
   </style>
 </head>
@@ -40,16 +43,16 @@
   <h2> Notepad </h2>
   <p>Paste your worries below and press the add button to append them to your misery.</p>
   <input type="text" placeholder="type here." id="worries">
-  <button onclick="append()">ADD</button>
+  <button class="btn" onclick="append()">ADD</button>
 
-    <table id="notesTable">
-      <thead>
-        <tr>
-          <th id="worryCount">you have nothing to worry about, as of now...</th>
-        </tr>
-      </thead>
-      <tbody>
-      <!-- Notes will appear here -->
+  <table id="notesTable">
+    <thead>
+      <tr>
+        <th id="worryCount">You have nothing to worry about, as of now...</th>
+      </tr>
+    </thead>
+    <tbody>
+    <!-- Notes will appear here -->
     </tbody>
   </table>
 
@@ -70,7 +73,8 @@
         let newCell = newRow.insertCell(0);
         newCell.innerText = inputtext;
 
-        document.getElementById("worryCount").innerText =  "("notes.length +") worries to think of.";
+        // Update the worry count
+        document.getElementById("worryCount").innerText = `${notes.length} worries to think of.`;
 
         // Clear the input field after adding the note
         document.getElementById("worries").value = '';
