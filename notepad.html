@@ -39,7 +39,7 @@
     <table id="notesTable">
       <thead>
         <tr>
-          <th id="worryCount">Total worries: 0</th>
+          <th id="worryCount">you have nothing to worry about, as of now...</th>
         </tr>
       </thead>
       <tbody>
@@ -64,7 +64,7 @@
         let newCell = newRow.insertCell(0);
         newCell.innerText = inputtext;
 
-        document.getElementById("worryCount").innerText = "Total worries: " + notes.length;
+        document.getElementById("worryCount").innerText =  notes.length +" worries to think of.";
 
         // Clear the input field after adding the note
         document.getElementById("worries").value = '';
