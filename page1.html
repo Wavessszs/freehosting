@@ -6,7 +6,6 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
       background: black;
       color: lime;
       font-family: monospace;
@@ -14,11 +13,13 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
     }
     #donut {
       white-space: pre;
-      font-size: 10px;
-      line-height: 10px;
+      font-size: 12px;
+      line-height: 6px; /* Tighter vertical spacing for better shape */
+      width: 80ch;
     }
   </style>
 </head>
@@ -33,7 +34,7 @@
   const renderDonut = () => {
     const b = [];
     const z = [];
-    const width = 40, height = 12;
+    const width = 80, height = 22;
 
     for (let i = 0; i < 1760; i++) {
       b[i] = ' ';
@@ -54,19 +55,25 @@
               n = Math.sin(B),
               t = c * h * g - f * e;
 
-        const x = Math.floor(width + 30 * D * (l * h * m - t * n)),
-              y = Math.floor(height + 15 * D * (l * h * n + t * m)),
-              o = x + 80 * y,
+        const x = Math.floor(width / 2 + 30 * D * (l * h * m - t * n)),
+              y = Math.floor(height / 2 + 15 * D * (l * h * n + t * m)),
+              o = x + width * y,
               N = Math.floor(8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n));
 
-        if (height > y && y > 0 && x > 0 && width * 2 > x && D > z[o]) {
+        if (y > 0 && y < height && x > 0 && x < width && D > z[o]) {
           z[o] = D;
           b[o] = ".,-~:;=!*#$@"[N > 0 ? N : 0];
         }
       }
     }
 
-    donutElem.textContent = b.join('');
+    let frame = '';
+    for (let k = 0; k < b.length; k++) {
+      frame += b[k];
+      if ((k + 1) % width === 0) frame += '\n';
+    }
+
+    donutElem.textContent = frame;
     A += 0.04;
     B += 0.08;
   };
