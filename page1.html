@@ -1,69 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Donut Landing Page</title>
+  <meta charset="UTF-8">
+  <title>ASCII Donut</title>
   <style>
     body {
-      font-family: monospace, Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f0f0f0;
+      background: black;
+      color: lime;
+      font-family: monospace;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
-    .container {
-      text-align: center;
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 700px;
-    }
     #donut {
-      font-family: monospace;
-      line-height: 0.75;
-      font-size: 10px;
-      color: #4CAF50;
       white-space: pre;
-      margin-bottom: 20px;
-      height: 200px;
-    }
-    h1 {
-      font-size: 2.2em;
-      color: #333;
-    }
-    p {
-      font-size: 1.1em;
-      color: #666;
-    }
-    .btn {
-      background-color: #4CAF50;
-      color: white;
-      padding: 15px 25px;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #45a049;
+      font-size: 10px;
+      line-height: 10px;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <pre id="donut"></pre>
-  <h1>Welcome to another Website!</h1>
-  <p>Your journey to great experiences starts here. Explore, learn, and grow with us.</p>
-  <a href="#" class="btn">Get Started</a>
-</div>
+<pre id="donut"></pre>
 
 <script>
   const donutElem = document.getElementById('donut');
@@ -74,9 +35,8 @@
     const z = [];
     const width = 40, height = 12;
 
-    const background = ' ';
     for (let i = 0; i < 1760; i++) {
-      b[i] = background;
+      b[i] = ' ';
       z[i] = 0;
     }
 
@@ -105,6 +65,7 @@
         }
       }
     }
+
     donutElem.textContent = b.join('');
     A += 0.04;
     B += 0.08;
