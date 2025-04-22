@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 60%;
+      margin-top: 20px;
+    }
+    td, th {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: center;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #2F6C67;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: white;
+      color: #2F6C67;
+    }
+  </style>
+</head>
+<body>
+
+  <h2> Notepad </h2>
+  <p>Paste your worries below and press the add button to append them to your misery.</p>
+  <input type="text" placeholder="type here." id="worries">
+  <button onclick="append()">ADD</button>
+
+  <table id="notesTable">
+    <thead>
+      <tr>
+        <th>Worry</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Notes will appear here -->
+    </tbody>
+  </table>
+
+  <script>
+    let notes = [];
+
+    function append() {
+      let inputtext = document.getElementById("worries").value;
+      if (inputtext) {
+        // Add the input text to the notes array
+        notes.push(inputtext);
+
+        // Get the table body element
+        let tableBody = document.getElementById("notesTable").getElementsByTagName("tbody")[0];
+
+        // Create a new row and insert the worry
+        let newRow = tableBody.insertRow(tableBody.rows.length);
+        let newCell = newRow.insertCell(0);
+        newCell.innerText = inputtext;
+
+        // Clear the input field after adding the note
+        document.getElementById("worries").value = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
