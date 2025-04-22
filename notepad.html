@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <title>Dynamic Table</title>
   <style>
+    body{
+      background-color: #FFCBE1
+    }
     table {
       border-collapse: collapse;
       width: 60%;
       margin-top: 20px;
+      background-color: #F9E1A8
+      
     }
     td, th {
       border: 1px solid #333;
@@ -15,17 +20,18 @@
       text-align: center;
     }
     .btn {
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #2F6C67;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background-color: white;
-      color: #2F6C67;
+            background-color:#DCCCEC;
+            color: white;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: white;
+            color: #DCCCEC;
     }
   </style>
 </head>
@@ -64,7 +70,7 @@
         let newCell = newRow.insertCell(0);
         newCell.innerText = inputtext;
 
-        document.getElementById("worryCount").innerText =  notes.length +" worries to think of.";
+        document.getElementById("worryCount").innerText =  "("notes.length +") worries to think of.";
 
         // Clear the input field after adding the note
         document.getElementById("worries").value = '';
