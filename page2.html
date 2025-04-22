@@ -4,35 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .btn {
+      background-color: #2F6C67;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: white;
+      color: #2F6C67;
+    }
+  </style>
 </head>
 <body>
-  <style>
-        .btn {
-            background-color:#2F6C67;
-            color: white;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .btn:hover {
-            background-color: white;
-            color: #2F6C67;
-        }
-  </style>
-  <p id ="change"> press this button below to change this word</p>
-  <button onclick="changemessage()"> here</button>
+
+  <p id="change">Press this button below to change this word</p>
+  <button class="btn" onclick="changemessage()">Here</button>
+
+  <script>
+    function changemessage() {
+      let newchange = "boldingcbato";
+      document.getElementById("change").innerText = newchange;
+    }
+  </script>
 
 </body>
-  <script>
-    let change = "word changed"
-
-    function changemessage(){
-      newchange="boldingcbato";
-      document.getElementbyId("change").innerText=newchange;
-    }
-    
-  </script>
 </html>
