@@ -1,0 +1,2 @@
+# freehosting
+try static site
