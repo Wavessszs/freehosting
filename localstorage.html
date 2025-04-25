@@ -13,8 +13,8 @@
   <script>
     function saveinput(){
       let saved = document.getElementById("input").value;
-      localStorage.setItem("betlog", "hatdog");
-      console.log(localStorage.getItem("betlog"));
+      localStorage.setItem("list", JSON.stringify(["a","b","c"]));
+      console.log(localStorage.getItem("list"[2]));
       console.log(saved);
     }
   </script>
