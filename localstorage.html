@@ -3,9 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>local storage</title>
 </head>
 <body>
-
+<p>list here the things you need to be saved locally</p>
+  <input type="text" id="input" placeholder="type here.">
+  <button onclick="saveinput()">submit</button>
 </body>
+  <script>
+    function saveinput(){
+      let saved = document.getElementById("input").value;
+      localStorage.setItem("betlog", "hatdog");
+      console.log(localStorage.getItem("betlog"));
+      console.log(saved);
+    }
+  </script>
 </html>
