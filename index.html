@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,30 +10,33 @@
             margin: 0;
             padding: 0;
             background: #E3DFE4;
-background: linear-gradient(180deg,rgba(227, 223, 228, 1) 0%, rgba(235, 221, 213, 1) 100%);
+            background: linear-gradient(180deg,rgba(227, 223, 228, 1) 0%, rgba(235, 221, 213, 1) 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
     
-.parent {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 8px;
-}
-    
-.div1 {
-    grid-column: span 5 / span 5;
-}
-
-.div2 {
-    grid-column: span 5 / span 5;
-    grid-row: span 4 / span 4;
-    grid-row-start: 2;
-}
+        .parent {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 8px;
+        }
+            
+        .div1 {
+            grid-column: span 5 / span 5;
+             display: flex;
+              justify-content: center; 
+              align-items: center;    
+              height: 50px;           
         
+        .div2 {
+            grid-column: span 5 / span 5;
+            grid-row: span 4 / span 4;
+            grid-row-start: 2;
+        }
+                
         h1 {
             font-size: 2.5em;
             color: #333;
