@@ -9,21 +9,31 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background: #E3DFE4;
+background: linear-gradient(180deg,rgba(227, 223, 228, 1) 0%, rgba(235, 221, 213, 1) 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
-        .container {
-            text-align: center;
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
-        }
+    
+.parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+}
+    
+.div1 {
+    grid-column: span 5 / span 5;
+}
+
+.div2 {
+    grid-column: span 5 / span 5;
+    grid-row: span 4 / span 4;
+    grid-row-start: 2;
+}
+        
         h1 {
             font-size: 2.5em;
             color: #333;
@@ -62,15 +72,25 @@
     </style>
 </head>
 <body>
+    
+<div class="parent">
+    <div class="div1">
+            <p>hello</p>
+    </div>
+    <div class="div2">
+            <h1>Welcome to this testing website!</h1>
+            <p>press any of the buttons to interact to the projects i've been messing with.</p>
+            <a href="page2.html" class="bluebtn">Javascript scripting project</a>
+            <a href="page1.html" class="btn">donut</a>
+            <a href="notepad.html" class="bluebtn">notepad</a>
+            <a href="qrcode.html" class="bluebtn">qrcode</a>
+            <a href="localstorage.html" class="bluebtn">local</a>
+    
+    </div>
+</div>
+    
 
-<div class="container">
-    <h1>Welcome to this testing website!</h1>
-    <p>press any of the buttons to interact to the projects i've been messing with.</p>
-    <a href="page2.html" class="bluebtn">Javascript scripting project</a>
-    <a href="page1.html" class="btn">donut</a>
-    <a href="notepad.html" class="bluebtn">notepad</a>
-    <a href="qrcode.html" class="bluebtn">qrcode</a>
-    <a href="localstorage.html" class="bluebtn">local</a>
+
     
 </div>
 
