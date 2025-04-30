@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shared Songs</title>
+</head>
+<body>
+  <h2>Shared Songs</h2>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="song-table-body"></tbody>
+  </table>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const encodedData = params.get('data');
+
+    if (encodedData) {
+      try {
+        const decoded = JSON.parse(decodeURIComponent(encodedData));
+        const tableBody = document.getElementById("song-table-body");
+
+        decoded.forEach(song => {
+          const row = document.createElement("tr");
+
+          const titleCell = document.createElement("td");
+          titleCell.textContent = song;
+
+          const actionCell = document.createElement("td");
+          const link = document.createElement("a");
+          link.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(song)}`;
+          link.textContent = "Play Now";
+          link.target = "_blank";
+
+          actionCell.appendChild(link);
+          row.appendChild(titleCell);
+          row.appendChild(actionCell);
+
+          tableBody.appendChild(row);
+        });
+
+      } catch (e) {
+        document.body.innerHTML = "<p>Error: Failed to read shared songs.</p>";
+        console.error("JSON Decode Error:", e);
+      }
+    } else {
+      document.body.innerHTML = "<p>No shared songs found in QR.</p>";
+    }
+  </script>
+</body>
+</html>
