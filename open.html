@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Multiple Tabs</title>
+</head>
+<body>
+  <h2>QR Code Generator</h2>
+
+  <p>List here the songs you want to save</p>
+  <input type="text" id="input1" placeholder="song">
+  <input type="text" id="input2" placeholder="artist">
+  <button onclick="saveinput()">Submit</button>
+  <button onclick="clearList()">Clear All</button>
+
+  <h3>Saved Songs</h3>
+  <table border="1" id="songTable">
+    <thead>
+      <tr><th>Song</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <br>
+  <button onclick="generateQRCode()">Generate QR Code</button>
+  <div id="qrcode"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <script>
+    function loadTable() {
+      const tableBody = document.getElementById("songTable").querySelector("tbody");
+      tableBody.innerHTML = ""; // clear existing rows
+
+      let list = JSON.parse(localStorage.getItem("list")) || [];
+
+      list.forEach((item, index) => {
+        const row = document.createElement("tr");
+
+        const cellSong = document.createElement("td");
+        cellSong.textContent = item;
+
+        const cellAction = document.createElement("td");
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.onclick = function () {
+          deleteItem(index);
+        };
+
+        cellAction.appendChild(delBtn);
+        row.appendChild(cellSong);
+        row.appendChild(cellAction);
+
+        tableBody.appendChild(row);
+      });
+    }
+
+    function saveinput() {
+      let input1 = document.getElementById("input1").value.trim();
+      let input2 = document.getElementById("input2").value.trim();
+      if (!input1 || !input2) return;
+
+      let saved = input1 + " " + input2;
+
+      let listahan = JSON.parse(localStorage.getItem("list")) || [];
+      listahan.push(saved);
+
+      localStorage.setItem("list", JSON.stringify(listahan));
+      loadTable();
+    }
+
+    function clearList() {
+      localStorage.removeItem("list");
+      loadTable();
+      document.getElementById("qrcode").innerHTML = "";
+    }
+
+    function deleteItem(index) {
+      let list = JSON.parse(localStorage.getItem("list")) || [];
+      list.splice(index, 1);
+      localStorage.setItem("list", JSON.stringify(list));
+      loadTable();
+    }
+
+    function generateQRCode() {
+      let list = JSON.parse(localStorage.getItem("list")) || [];
+      let jsonString = JSON.stringify(list);
+      let encodedJson = encodeURIComponent(jsonString);
+      let url = `close.html?data=${encodedJson}`; // replace with your actual domain
+
+      document.getElementById("qrcode").innerHTML = "";
+
+      QRCode.toDataURL(url, function (err, qrUrl) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        const img = document.createElement("img");
+        img.src = qrUrl;
+        document.getElementById("qrcode").appendChild(img);
+      });
+    }
+
+    // Load table on page load
+    window.onload = loadTable;
+  </script>
+</body>
+</html>
