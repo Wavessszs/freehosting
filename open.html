@@ -23,6 +23,10 @@
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
 
     h2,
@@ -103,8 +107,8 @@
       <button onclick="saveinput()">Submit</button>
       <button onclick="clearList()">Clear All</button>
     </div>
-
-    <h3>Saved Songs</h3>
+    <label><br></label>
+    
     <table id="songTable">
       <thead>
         <tr>
@@ -115,6 +119,7 @@
       </thead>
       <tbody></tbody>
     </table>
+    <input type="text" id="playlistname" placeholder="playlist name" style="width: 50%;">
     <button onclick="generateQRCode()">Generate QR Code</button>
     <div id="qrcode"></div>
   </div>
@@ -126,6 +131,8 @@
       tableBody.innerHTML = "";
 
       let list = JSON.parse(localStorage.getItem("list")) || [];
+
+    
 
       list.forEach((item, index) => {
         const row = document.createElement("tr");
@@ -187,7 +194,9 @@
     }
 
     function generateQRCode() {
+      let plname=document.getElementById("playlistname").value;
       let list = JSON.parse(localStorage.getItem("list")) || [];
+      list.unshift(plname);
       let jsonString = JSON.stringify(list);
       let encodedJson = encodeURIComponent(jsonString);
       let url = `https://wavessszs.github.io/freehosting/close.html?data=${encodedJson}`;
