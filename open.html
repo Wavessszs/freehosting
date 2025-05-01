@@ -98,7 +98,7 @@
 
     <input type="text" id="input1" placeholder="title">
     <input type="text" id="input2" placeholder="artist">
-    
+
     <div style="display: flex; justify-content: center; align-items: center;">
       <button onclick="saveinput()">Submit</button>
       <button onclick="clearList()">Clear All</button>
@@ -130,10 +130,9 @@
       list.forEach((item, index) => {
         const row = document.createElement("tr");
 
-        // Split using single space, trim it, and check if there is more than one part
-        const parts = item.split(" ").filter(Boolean); // Split by any space and remove empty parts
-        let title = parts[0] || "Unknown Title";
-        let artist = parts.slice(1).join(" ") || "Unknown Artist"; // Join back if the artist is more than one word
+        let [title, artist] = item.split(" | ");
+        title = title || "Unknown Title";
+        artist = artist || "Unknown Artist";
 
         const cellTitle = document.createElement("td");
         cellTitle.textContent = title;
@@ -157,17 +156,15 @@
       });
     }
 
+
+
     function saveinput() {
-      let input1 = document.getElementById("input1").value.trim();
-      let input2 = document.getElementById("input2").value.trim();
+      let input1 = document.getElementById("input1").value.trim(); // title
+      let input2 = document.getElementById("input2").value.trim(); // artist
+
       if (!input1) return;
 
-      let saved;
-      if (input2) {
-        saved = input1 + " " + input2; // Use a single space
-      } else {
-        saved = input1; // Just one string if no artist is provided
-      }
+      let saved = input2 ? `${input1} | ${input2}` : input1; // separate with " | "
 
       let listahan = JSON.parse(localStorage.getItem("list")) || [];
       listahan.push(saved);
