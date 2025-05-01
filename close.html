@@ -2,159 +2,165 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shared Songs</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: antiquewhite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      padding: 10px;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared Songs</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: antiquewhite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 10px;
+        }
 
-    .container {
-      background-color: #FDF5E6;
-      border-radius: 10px;
-      padding: 20px 30px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 600px;
-    }
+        .container {
+            background-color: #FDF5E6;
+            border-radius: 10px;
+            padding: 20px 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
 
-    h2 {
-      text-align: center;
-      color: #333;
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
 
-    table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-    }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
 
-    th,
-    td {
-      padding: 10px;
-      text-align: left;
-      font-size: 0.9rem;
-    }
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
 
-    thead th {
-      color: #444;
-      font-weight: bold;
-      background-color: #ddd;
-    }
+        thead th {
+            color: #444;
+            font-weight: bold;
+            background-color: #ddd;
+        }
 
-    tbody tr:nth-child(odd) {
-      background-color: #f9f1e7;
-    }
+        tbody tr:nth-child(odd) {
+            background-color: #f9f1e7;
+        }
 
-    tbody tr:nth-child(even) {
-      background-color: #fff6e6;
-    }
+        tbody tr:nth-child(even) {
+            background-color: #fff6e6;
+        }
 
-    a {
-      color: #444;
-      text-decoration: none;
-      font-weight: bold;
-    }
+        a {
+            color: #444;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        a:hover {
+            text-decoration: underline;
+        }
 
-    /* Responsive styling */
-    @media (max-width: 600px) {
-      .container {
-        padding: 15px;
-      }
+        /* Responsive styling */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
 
-      h2 {
-        font-size: 1.3rem;
-      }
+            h2 {
+                font-size: 1.3rem;
+            }
 
-      table {
-        font-size: 0.8rem;
-      }
+            table {
+                font-size: 0.8rem;
+            }
 
-      th,
-      td {
-        padding: 8px;
-      }
+            th,
+            td {
+                padding: 8px;
+            }
 
-      a {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+            a {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>Shared Songs</h2>
+    <div class="container">
+        <h2> </h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Artist</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="song-table-body"></tbody>
-    </table>
-  </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="song-table-body"></tbody>
+        </table>
+    </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const encodedData = params.get('data');
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const encodedData = params.get('data');
 
-    if (encodedData) {
-      try {
-        const decoded = JSON.parse(decodeURIComponent(encodedData));
-        const tableBody = document.getElementById("song-table-body");
+        if (encodedData) {
+            try {
+                const decoded = JSON.parse(decodeURIComponent(encodedData));
+                const tableBody = document.getElementById("song-table-body");
 
-        decoded.forEach(song => {
-          const row = document.createElement("tr");
+                const playlistName = decoded[0];
 
-          let [title, artist] = song.split(" | ");
-          title = title || "Unknown Title";
-          artist = artist || "Unknown Artist";
+                
+                document.querySelector("h2").textContent = playlistName;
 
-          const titleCell = document.createElement("td");
-          titleCell.textContent = title;
+             
+                decoded.slice(1).forEach(song => {
+                    const row = document.createElement("tr");
 
-          const artistCell = document.createElement("td");
-          artistCell.textContent = artist;
+                    let [title, artist] = song.split(" | ");
+                    title = title || "Unknown Title";
+                    artist = artist || "Unknown Artist";
 
-          const actionCell = document.createElement("td");
-          const link = document.createElement("a");
-          link.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(song)}`;
-          link.textContent = "Play Now";
-          link.target = "_blank";
+                    const titleCell = document.createElement("td");
+                    titleCell.textContent = title;
 
-          actionCell.appendChild(link);
-          row.appendChild(titleCell);
-          row.appendChild(artistCell);
-          row.appendChild(actionCell);
+                    const artistCell = document.createElement("td");
+                    artistCell.textContent = artist;
 
-          tableBody.appendChild(row);
-        });
-      } catch (e) {
-        document.body.innerHTML = "<p>Error: Failed to read shared songs.</p>";
-        console.error("JSON Decode Error:", e);
-      }
-    } else {
-      document.body.innerHTML = "<p>No shared songs found in QR.</p>";
-    }
-  </script>
+                    const actionCell = document.createElement("td");
+                    const link = document.createElement("a");
+                    link.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(song)}`;
+                    link.textContent = "Play Now";
+                    link.target = "_blank";
+
+                    actionCell.appendChild(link);
+                    row.appendChild(titleCell);
+                    row.appendChild(artistCell);
+                    row.appendChild(actionCell);
+
+                    tableBody.appendChild(row);
+                });
+            } catch (e) {
+                document.body.innerHTML = "<p>Error: Failed to read shared songs.</p>";
+                console.error("JSON Decode Error:", e);
+            }
+        } else {
+            document.body.innerHTML = "<p>No shared songs found in QR.</p>";
+        }
+    </script>
 </body>
 
 </html>
