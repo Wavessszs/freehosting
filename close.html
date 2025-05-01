@@ -64,6 +64,11 @@
     a:hover {
       text-decoration: underline;
     }
+
+    p {
+      text-align: center;
+      color: #333;
+    }
   </style>
 </head>
 
@@ -95,7 +100,10 @@
         decoded.forEach(song => {
           const row = document.createElement("tr");
 
-          let [title, artist] = song.split(" | ");
+          let [title, artist] = song.includes(" | ")
+            ? song.split(" | ")
+            : [song, "Unknown Artist"];
+
           title = title || "Unknown Title";
           artist = artist || "Unknown Artist";
 
