@@ -21,22 +21,27 @@
       border-radius: 10px;
       padding: 20px 30px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      width: 90%;
+      width: 100%;
       max-width: 600px;
     }
 
-    h2, h3, p {
+    h2,
+    h3,
+    p {
       text-align: center;
       color: #333;
     }
 
     input[type="text"] {
-      width: calc(50% - 10px);
+      width: 100%;
       padding: 10px;
       margin: 5px;
       border: none;
-      border-radius: 5px;
+      outline: none;
+      border-bottom: solid 2px #333;
       font-size: 16px;
+      box-sizing: border-box;
+      background-color: transparent;
     }
 
     button {
@@ -60,7 +65,8 @@
       border-collapse: collapse;
     }
 
-    th, td {
+    th,
+    td {
       padding: 10px;
       text-align: left;
     }
@@ -87,15 +93,15 @@
 
 <body>
   <div class="container">
-    <h2>QR Code Generator</h2>
-    <p>List here the songs you want to save</p>
+    <h2>share music, your way.</h2>
+    <p>List here the songs you want to share</p>
 
-    <input type="text" id="input1" placeholder="song">
+    <input type="text" id="input1" placeholder="title">
     <input type="text" id="input2" placeholder="artist">
-    <div>
+    
+    <div style="display: flex; justify-content: center; align-items: center;">
       <button onclick="saveinput()">Submit</button>
       <button onclick="clearList()">Clear All</button>
-      
     </div>
 
     <h3>Saved Songs</h3>
@@ -103,7 +109,8 @@
       <thead>
         <tr>
           <th>Song</th>
-          <th> </th>
+          <th>Artist</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -123,8 +130,22 @@
       list.forEach((item, index) => {
         const row = document.createElement("tr");
 
-        const cellSong = document.createElement("td");
-        cellSong.textContent = item;
+        // Try to split by spaces, if it doesn't work, consider as one item
+        const parts = item.split(/\s{2,}/);
+        let title = parts[0] || "Unknown Title";
+        let artist = parts[1] || "Unknown Artist"; // If there's no artist, use the whole as title.
+
+        // If no artist found and we only have one word, treat it as a single word (no split needed)
+        if (parts.length === 1) {
+          title = parts[0];
+          artist = "Unknown Artist";
+        }
+
+        const cellTitle = document.createElement("td");
+        cellTitle.textContent = title;
+
+        const cellArtist = document.createElement("td");
+        cellArtist.textContent = artist;
 
         const cellAction = document.createElement("td");
         const delBtn = document.createElement("button");
@@ -134,7 +155,8 @@
         };
 
         cellAction.appendChild(delBtn);
-        row.appendChild(cellSong);
+        row.appendChild(cellTitle);
+        row.appendChild(cellArtist);
         row.appendChild(cellAction);
 
         tableBody.appendChild(row);
@@ -146,7 +168,12 @@
       let input2 = document.getElementById("input2").value.trim();
       if (!input1) return;
 
-      let saved = input1 + " " + input2;
+      let saved;
+      if (input2) {
+        saved = input1 + "   " + input2; // Use 3 spaces
+      } else {
+        saved = input1; // Just one string if no artist is provided
+      }
 
       let listahan = JSON.parse(localStorage.getItem("list")) || [];
       listahan.push(saved);
@@ -172,7 +199,7 @@
       let list = JSON.parse(localStorage.getItem("list")) || [];
       let jsonString = JSON.stringify(list);
       let encodedJson = encodeURIComponent(jsonString);
-      let url = `https://wavessszs.github.io/freehosting/close.html?data=${encodedJson}`;
+      let url = `close.html?data=${encodedJson}`;
 
       document.getElementById("qrcode").innerHTML = "";
 
