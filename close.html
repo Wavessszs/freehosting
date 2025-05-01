@@ -8,12 +8,13 @@
   <style>
     body {
       margin: 0;
-      font-family: monospace;
+      font-family: 'Arial', sans-serif;
       background-color: antiquewhite;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      padding: 10px;
     }
 
     .container {
@@ -28,6 +29,8 @@
     h2 {
       text-align: center;
       color: #333;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
     }
 
     table {
@@ -40,11 +43,13 @@
     td {
       padding: 10px;
       text-align: left;
+      font-size: 0.9rem;
     }
 
     thead th {
       color: #444;
       font-weight: bold;
+      background-color: #ddd;
     }
 
     tbody tr:nth-child(odd) {
@@ -65,9 +70,28 @@
       text-decoration: underline;
     }
 
-    p {
-      text-align: center;
-      color: #333;
+    /* Responsive styling */
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      table {
+        font-size: 0.8rem;
+      }
+
+      th,
+      td {
+        padding: 8px;
+      }
+
+      a {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -100,10 +124,7 @@
         decoded.forEach(song => {
           const row = document.createElement("tr");
 
-          let [title, artist] = song.includes(" | ")
-            ? song.split(" | ")
-            : [song, "Unknown Artist"];
-
+          let [title, artist] = song.split(" | ");
           title = title || "Unknown Title";
           artist = artist || "Unknown Artist";
 
