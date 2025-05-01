@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waves</title>
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
         }
 
@@ -107,9 +112,11 @@
             0% {
                 box-shadow: 0 0 15px rgba(255, 255, 255, 0);
             }
+
             50% {
                 box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
             }
+
             100% {
                 box-shadow: 0 0 15px rgba(255, 255, 255, 0);
             }
@@ -143,26 +150,47 @@
             box-sizing: border-box;
         }
 
-        .front  { transform: translateZ(100px); }
-        .back   { transform: rotateY(180deg) translateZ(100px); }
-        .right  { transform: rotateY(90deg) translateZ(100px); }
-        .left   { transform: rotateY(-90deg) translateZ(100px); }
-        .top    { transform: rotateX(90deg) translateZ(100px); }
-        .bottom { transform: rotateX(-90deg) translateZ(100px); }
+        .front {
+            transform: translateZ(100px);
+        }
+
+        .back {
+            transform: rotateY(180deg) translateZ(100px);
+        }
+
+        .right {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .left {
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .top {
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .bottom {
+            transform: rotateX(-90deg) translateZ(100px);
+        }
 
         @keyframes rotateCube {
             0% {
                 transform: rotateX(-20deg) rotateY(0deg);
             }
+
             25% {
                 transform: rotateX(-10deg) rotateY(90deg);
             }
+
             50% {
                 transform: rotateX(0deg) rotateY(180deg);
             }
+
             75% {
                 transform: rotateX(-10deg) rotateY(270deg);
             }
+
             100% {
                 transform: rotateX(-20deg) rotateY(360deg);
             }
@@ -231,12 +259,25 @@
             0% {
                 transform: rotateX(-10deg) rotateY(0deg);
             }
+
             100% {
                 transform: rotateX(-10deg) rotateY(360deg);
             }
         }
+
+        .fader {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .fader.visible {
+            opacity: 1;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="header">
@@ -245,7 +286,7 @@
         <p>Contact Us</p>
     </div>
     <div class="greeting">
-        <h1>Uncover the spaces where form and function converge.</h1>
+        <h1 id="greet" class="fader">Uncover the spaces where form and function converge.</h1>
     </div>
 
     <div class="scene">
@@ -262,7 +303,8 @@
     <div class="subbody">
         <div class="leftsb">
             <h1 style="font-family:Cormorant Garamond,serif;">Welcome to this testing website!</h1>
-            <p style="font-family: Lora,serif;">Press any of the buttons to interact with the projects I've been messing with.</p>
+            <p style="font-family: Lora,serif;">Press any of the buttons to interact with the projects I've been messing
+                with.</p>
         </div>
         <div class="rightsb">
             <a href="page2.html" class="btn">Javascript scripting project</a>
@@ -283,6 +325,33 @@
             <div class="tface  tleft"></div>
         </div>
     </div>
+    <script>
+        const texts = [
+  "Uncover the spaces where form and function converge.",
+  "Experience the waves",
 
+
+  "Be curious",
+  "Be real"
+];
+
+let index = 0;
+const element = document.getElementById("greet");
+
+function showNextText() {
+  element.classList.remove("visible");
+
+  setTimeout(() => {
+    element.textContent = texts[index];
+    element.classList.add("visible");
+    index = (index + 1) % texts.length;
+  }, 1000); // Matches CSS transition duration
+}
+
+showNextText(); // Show first
+setInterval(showNextText, 5000); // Change every 5s
+
+    </script>
 </body>
+
 </html>
