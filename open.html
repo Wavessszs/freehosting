@@ -130,16 +130,10 @@
       list.forEach((item, index) => {
         const row = document.createElement("tr");
 
-        // Try to split by spaces, if it doesn't work, consider as one item
-        const parts = item.split(/\s{2,}/);
+        // Split using single space, trim it, and check if there is more than one part
+        const parts = item.split(" ").filter(Boolean); // Split by any space and remove empty parts
         let title = parts[0] || "Unknown Title";
-        let artist = parts[1] || "Unknown Artist"; // If there's no artist, use the whole as title.
-
-        // If no artist found and we only have one word, treat it as a single word (no split needed)
-        if (parts.length === 1) {
-          title = parts[0];
-          artist = "Unknown Artist";
-        }
+        let artist = parts.slice(1).join(" ") || "Unknown Artist"; // Join back if the artist is more than one word
 
         const cellTitle = document.createElement("td");
         cellTitle.textContent = title;
@@ -170,7 +164,7 @@
 
       let saved;
       if (input2) {
-        saved = input1 + " " + input2; // Use 3 spaces
+        saved = input1 + " " + input2; // Use a single space
       } else {
         saved = input1; // Just one string if no artist is provided
       }
