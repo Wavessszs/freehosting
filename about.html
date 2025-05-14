@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About Us - Elegant Bento Style</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(180deg, rgba(227,223,228,1) 60%, rgb(224,205,195) 90%);
+    color: #2e2e2e;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-auto-rows: auto;
+    gap: 2.5rem;
+  }
+
+  .bento-item {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    box-shadow:
+      0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: box-shadow 0.3s ease;
+    backdrop-filter: saturate(180%) blur(12px);
+  }
+  .bento-item:hover {
+    box-shadow:
+      0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #3b2f2f;
+    letter-spacing: 0.05em;
+  }
+  h2 {
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #3b2f2f;
+  }
+  p {
+    line-height: 1.6;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #4a4545;
+  }
+
+  /* Some bento items can be bigger for emphasis */
+  .bento-item.large {
+    grid-column: span 2;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 640px) {
+    body {
+      padding: 2rem 1rem 3rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    h2 {
+      font-size: 1.4rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="container" role="main" aria-label="About Us Information">
+    <section class="bento-item large" aria-labelledby="about-title">
+      <h1 id="about-title">About Us</h1>
+      <p>
+        Founded with a dedication to excellence and a vision for innovation, our company embraces elegance and professionalism in everything we do. We are committed to delivering quality and creating value for our clients, while maintaining a minimalist and clear approach to our work and communication.
+      </p>
+    </section>
+
+    <section class="bento-item" aria-labelledby="mission-title">
+      <h2 id="mission-title">Our Mission</h2>
+      <p>
+        To consistently provide premium, elegant solutions that empower our clients to succeed, while fostering a culture rooted in integrity, clarity, and lasting partnerships.
+      </p>
+    </section>
+
+    <section class="bento-item" aria-labelledby="vision-title">
+      <h2 id="vision-title">Our Vision</h2>
+      <p>
+        To be recognized as a leader in our industry, defined by our clarity of purpose, minimalist design philosophy, and unwavering professionalism.
+      </p>
+    </section>
+
+    <section class="bento-item" aria-labelledby="values-title">
+      <h2 id="values-title">Core Values</h2>
+      <p>
+        <strong>Elegance:</strong> Striving for refined simplicity.<br />
+        <strong>Professionalism:</strong> Upholding the highest standards.<br />
+        <strong>Integrity:</strong> Transparent and honest communication.<br />
+        <strong>Innovation:</strong> Pushing boundaries with clear intent.<br />
+        <strong>Respect:</strong> Valuing every client and team member.
+      </p>
+    </section>
+
+    <section class="bento-item" aria-labelledby="team-title">
+      <h2 id="team-title">Our Team</h2>
+      <p>
+        A group of dedicated professionals who bring passion, expertise, and clarity to all projects. Together, we create meaningful experiences for our clients while maintaining a minimalist approach that speaks volumes.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
+
