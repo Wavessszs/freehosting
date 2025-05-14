@@ -5,10 +5,102 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>for you</title><
+    <title>for you</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swish {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFF5EE;
+            width: 100%;
+            height: 100vh;
+            padding: 10px 10px;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .seed {
+            visibility: hidden;
+        }
+    </style>
 </head>
+
 <body>
-  <h1>henlo bro</h1>
-  
+    <div class="swish">
+        <h1 id="gehleemaganda">henlo bro</h1>
+        
+    <div>
+        <button class="seed" id>yes</button>
+        <button class="seed" style="background-color: red;">no</button>
+    </div>
+    </div>
+    <script>
+        let pookie = [
+            "wonder why you're here?",
+            "wait—before you close this window,",
+            "just—listen to me first, yeah?",
+            "there's something i've been meaning to say.",
+            "something i've been thinking for",
+            "for like, i dunno...",
+            "forever?",
+            "but lately,",
+            "i've been curious. like, really curious.",
+            "wondering what you've been up to these days,",
+            "you know, i'm really glad i met you.",
+            "i always kind of wait,",
+            "for like some kind of miracle,",
+            "like world piece type shi",
+            "just kidding. haha",
+            "anyways,",
+            "i was overthinking",
+            "that if i ever trip and unfortunately",
+            "accidentally sent you this link,",
+            "you’d open it, wait five minutes, then say something random like,",
+            "'wat hafen velah?'",
+            "(okay, okay that was the last one, >_<)",
+            "oooor maybe you'd just close it and forget :l .",
+            "but, um...",
+            "truth is—",
+            "i think you're really cute.",
+            "and i like your outfits.",
+            "and i like the way your voice stays in my head,",
+            "and i miss the way your eyes kind of... linger.",
+            "like they’re stuck to mine with magnets or something.",
+            "...",
+            "so yeah.",
+            "i like you.",
+            "better prepare something i can reply to :O",
+            "or else i'd cry :<"
+        ];
+
+
+        let index_pookie = 0;
+
+        let timer = setInterval(ive, 2000);
+
+
+
+        function ive() {
+            document.getElementById("gehleemaganda").innerText = pookie[index_pookie];
+            index_pookie += 1; 
+            if (index_pookie == pookie.length) {
+                let elmore = document.getElementsByClassName("seed");
+                clearInterval(timer);
+               
+                for (let i = 0; i < elmore.length; i++) {
+                    elmore[i].style.visibility = "visible";
+                }
+            }
+        }
+
+
+    </script>
 </body>
+
 </html>
