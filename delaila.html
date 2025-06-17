@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather API Example</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background-image: url("night_bg.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            /* Optional: makes background stay fixed when scrolling */
+            color: white;
+            
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        .middle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <div class="top">
+        <p id="sunrise"></p>
+        <p id="sunset"></p>
+    </div>
+
+    <div class="middle">
+        <p id="temp" style="font-size: 80px; margin: 0px;"></p>
+        <p id="today"></p>
+    </div>
+    <div class="top">
+        <div>
+            <p id="tempmax"></p>
+            <p id="tempmin"></p>
+
+        </div>
+        <p id="tomorrow"></p>
+    </div>
+
+    <p id="day"></p>
+    <p id="rain"></p>
+
+
+
+
+    <!-- Animated icons -->
+    <img id="sunIcon" src="sun.gif" width="50px" height="50px" style="display: none;">
+    <img id="nightIcon" src="night.gif" width="50px" height="50px" style="display: none;">
+    <img id="rainIcon" src="rain.gif" width="50px" height="50px" style="display: none;">
+
+    <script>
+        const weatherCodes = {
+            0: "Clear sky",
+            1: "Mainly clear",
+            2: "Partly cloudy",
+            3: "Overcast",
+            45: "Fog",
+            48: "Depositing rime fog",
+            51: "Light drizzle",
+            53: "Moderate drizzle",
+            55: "Dense drizzle",
+            56: "Light freezing drizzle",
+            57: "Dense freezing drizzle",
+            61: "Slight rain",
+            63: "Moderate rain",
+            65: "Heavy rain",
+            66: "Light freezing rain",
+            67: "Heavy freezing rain",
+            71: "Slight snow fall",
+            73: "Moderate snow fall",
+            75: "Heavy snow fall",
+            77: "Snow grains",
+            80: "Slight rain showers",
+            81: "Moderate rain showers",
+            82: "Violent rain showers",
+            85: "Slight snow showers",
+            86: "Heavy snow showers",
+            95: "Thunderstorm",
+            96: "Thunderstorm with slight hail",
+            99: "Thunderstorm with heavy hail"
+        };
+
+        function fonk() {
+            fetch("https://api.open-meteo.com/v1/forecast?latitude=14.6042&longitude=120.9822&daily=temperature_2m_max,temperature_2m_min,sunset,sunrise,weathercode&current=temperature_2m,is_day,rain,weathercode&timezone=auto&forecast_days=3")
+                .then(response => response.json())
+                .then(data => {
+                    const temp = data.current.temperature_2m;
+                    const isDay = data.current.is_day;
+                    const rain = data.current.rain;
+                    const code_today = data.current.weathercode;
+
+                    const maxTemp = data.daily.temperature_2m_max[0];
+                    const minTemp = data.daily.temperature_2m_min[0];
+
+                    const code_tomorrow = data.daily.weathercode[1];
+
+                    let sunrise = data.daily.sunrise[0];
+                    let sunset = data.daily.sunset[0];
+
+
+
+                    const to12h = t => {
+                        let [h, m] = t.split(":");
+                        let hour = h % 12 || 12;
+                        let ampm = h < 12 ? "AM" : "PM";
+                        return `${hour}:${m} ${ampm}`;
+                    };
+                    sunrise = sunrise.slice(11, 16);
+                    sunset = to12h(data.daily.sunset[0].slice(11, 16));
+
+
+                    // Display info
+                    document.getElementById("temp").innerText = `${temp} C`;
+
+                    //document.getElementById("rain").innerText = `Is it raining? ${rain > 0 ? 'Yes' : 'No'}`;
+                    // document.getElementById("sunIcon").style.display = isDay === 1 ? "inline" : "none";
+                    // document.getElementById("nightIcon").style.display = isDay === 0 ? "inline" : "none";
+
+                    document.getElementById("tempmax").innerText = `Max: ${maxTemp} C`;
+                    document.getElementById("tempmin").innerText = `Min: ${minTemp} C`;
+
+                    document.getElementById("sunrise").innerText = `Sunrise: ${sunrise} AM`;
+                    document.getElementById("sunset").innerText = `Sunset: ${sunset}`;
+
+                    // Weather code descriptions
+                    document.getElementById("today").innerText = `${weatherCodes[code_today] || "Unknown"}`;
+                    document.getElementById("tomorrow").innerText = `Tomorrow's forecast: ${weatherCodes[code_tomorrow] || "Unknown"}`;
+
+
+                    document.getElementById("sunIcon").style.display = "none";
+                    document.getElementById("nightIcon").style.display = "none";
+                    document.getElementById("rainIcon").style.display = "none";
+
+                    // Then show only one based on condition
+                    /*  if (rain > 0) {
+                          document.getElementById("rainIcon").style.display = "inline";
+                      } else if (isDay === 1) {
+                          document.getElementById("sunIcon").style.display = "inline";
+                      } else {
+                          document.getElementById("nightIcon").style.display = "inline";
+                      }*/
+
+                    if (rain > 0) {
+                        document.body.style.backgroundImage = "url('rain_bg.gif')";
+                        const existingOverlay = document.getElementById("overlay");
+                        if (existingOverlay) existingOverlay.remove();
+                    } else if (isDay === 1) {
+                        document.body.style.backgroundImage = "url('day_bg.gif')";
+                        const existingOverlay = document.getElementById("overlay");
+                        if (existingOverlay) existingOverlay.remove();
+                    } else {
+                        document.body.style.backgroundImage = "url('night_bg.gif')";
+
+                        if (!document.getElementById("overlay")) {
+                            const overlay = document.createElement("div");
+                            overlay.id = "overlay";
+                            overlay.style.position = "fixed";
+                            overlay.style.top = 0;
+                            overlay.style.left = 0;
+                            overlay.style.width = "100vw";
+                            overlay.style.height = "100vh";
+                            overlay.style.background = "rgba(0, 0, 0, 0.4)";
+                            overlay.style.zIndex = "-1";
+                            overlay.style.pointerEvents = "none";
+
+                            document.body.appendChild(overlay);
+                        }
+                    }
+
+                })
+                .catch(error => {
+                    console.error("Error fetching weather data:", error);
+                });
+        }
+
+        // Optional: auto-run on page load
+        window.onload = fonk;
+    </script>
+</body>
+
+</html>
