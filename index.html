@@ -314,7 +314,7 @@
             <a href="localstorage.html" class="btn">LOCAL</a>
             <a href="open.html" class="btn">open</a>
             <a href="foru.html" class="btn">foru</a>
-             <a href="delaila.html" class="btn">weatherapp</a>
+              <a href="#" class="btn" onclick="openSmallWindow(); return false;">weather app</a>
         </div>
     </div>
 
@@ -328,6 +328,14 @@
         </div>
     </div>
     <script>
+        function openSmallWindow() {
+  window.open(
+    'delaila.html',
+    'tinyWindow',
+    'width=300,height=300,resizable=no,scrollbar=no,toolbar=no,menubar=no,status=no'
+  );
+}
+
         const texts = [
   "Uncover the spaces where form and function converge.",
   "Experience the waves",
