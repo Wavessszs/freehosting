@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schedule UI</title>
+  <style>
+  :root {
+    --accent: #a9b388;
+    --hover: #e6dcc7;
+    --background: #fdfaf5;
+    --text: #4a4a4a;
+    --muted: #ddd7c9;
+    --white: #fffdf8;
+  }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    padding: 2rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    transition: 0.3s ease;
+  }
+
+  th, td {
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--muted);
+  }
+
+  th {
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    background-color: #f5f2eb;
+    color: var(--text);
+    position: relative;
+  }
+
+  .time-slot {
+    background-color: #ebe3d5;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+
+  .dimmed {
+    opacity: 0.25;
+    filter: grayscale(20%);
+  }
+
+  .highlight {
+    background-color: var(--hover) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transform: scale(1.02);
+    z-index: 1;
+  }
+
+  td:not(.highlight):hover {
+    cursor: default;
+  }
+
+  th.header:hover {
+    background-color: #8a9e6f;
+    cursor: pointer;
+  }
+</style>
+
+</head>
+<body>
+  <table id="schedule">
+    <thead>
+      <tr>
+        <th class="header" data-day="time">Time Slot</th>
+        <th class="header" data-day="1">Monday</th>
+        <th class="header" data-day="2">Tuesday</th>
+        <th class="header" data-day="3">Wednesday</th>
+        <th class="header" data-day="4">Thursday</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="time-slot">7:30–10:30AM</td>
+        <td data-day="1">Architecture(049)-bornok</td>
+        <td data-day="2">EMBED3(055)-bornok</td>
+        <td data-day="3">Architecture(049)-bornok</td>
+        <td data-day="4">THESIS1(050)-hambalusin</td>
+      </tr>
+      <tr>
+        <td class="time-slot">10:30–1:30AM</td>
+        <td data-day="1" rowspan="3"></td>
+        <td data-day="2"></td>
+        <td data-day="3" rowspan="3"></td>
+        <td data-day="4">EMBED SYSTEMS(048)-abnoy</td>
+      </tr>
+      <tr>
+        <td class="time-slot">11:30–12:30PM</td>
+        <td data-day="2">SSP(009)-baltog</td>
+        <td data-day="4" rowspan="2"></td>
+      </tr>
+      <tr>
+        <td class="time-slot">12:30–4:30PM</td>
+        <td data-day="2">DSP(029)-baltog</td>
+      </tr>
+      <tr>
+        <td class="time-slot">1:00–3:00PM</td>
+        <td data-day="1">EMBED SYSTEMS(048)-abnoy</td>
+        <td data-day="2" rowspan="2"></td>
+        <td data-day="3">EMBED SYSTEMS(048)-abnoy</td>
+        <td data-day="4"></td>
+      </tr>
+      <tr>
+        <td class="time-slot">4:30–6:30PM</td>
+        <td data-day="1"></td>
+        <td data-day="3">DSP(029)-baltog</td>
+        <td data-day="4"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const headers = document.querySelectorAll(".header");
+    const allCells = document.querySelectorAll("td");
+    const timeSlots = document.querySelectorAll(".time-slot");
+
+    headers.forEach((header) => {
+      const dayIndex = header.dataset.day;
+
+      if (dayIndex !== "time") {
+        header.addEventListener("mouseenter", () => {
+          allCells.forEach((cell) => {
+            cell.classList.add("dimmed");
+            cell.classList.remove("highlight");
+          });
+
+          timeSlots.forEach((slot) => {
+            slot.classList.add("dimmed");
+            slot.classList.remove("highlight");
+          });
+
+          document.querySelectorAll(`td[data-day="${dayIndex}"]`).forEach((cell) => {
+            if (cell.textContent.trim() !== "") {
+              cell.classList.remove("dimmed");
+              cell.classList.add("highlight");
+
+              const row = cell.parentElement;
+              const timeCell = row.querySelector(".time-slot");
+              if (timeCell) {
+                timeCell.classList.remove("dimmed");
+                timeCell.classList.add("highlight");
+              }
+            }
+          });
+        });
+
+        header.addEventListener("mouseleave", () => {
+          allCells.forEach((cell) => {
+            cell.classList.remove("dimmed", "highlight");
+          });
+          timeSlots.forEach((slot) => {
+            slot.classList.remove("dimmed", "highlight");
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
