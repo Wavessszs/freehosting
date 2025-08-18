@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storyboard maker</title>
+    <style>
+        body{
+            overflow: hidden;
+            margin: 0px;
+        }
+        
+        .brave{
+            background-color: white;
+            width: 100vw;
+            height: 100vh;
+        }
+        .texbox{
+            position: absolute;
+            background-color: aquamarine;
+            height: fit-content;
+            width: fit-content;
+            padding-top: auto;
+            display: flex;
+            flex-direction: column;
+            padding-left: .5%;
+            padding-right: .5%;
+            padding-bottom: .5%;
+        }
+        footer{
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 50%;
+        }
+        .pakalso{
+            background-color: red;
+            display: flex;
+            flex-direction: row-reverse ;
+            margin-left: auto;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            margin-right: 2%;
+           
+          
+            width: fit-content;
+
+        }
+
+        
+        
+    </style>
+</head>
+
+<body>
+    <div class="brave" id="storyboard"><footer>click anywhere to create a textbox</footer></div>
+    <div id = "divngtextbox" hidden><button id="btn">x</button></div>
+    
+</body>
+<script>
+    
+    let Storyboard = document.getElementById('storyboard');
+    let isDragging = false;
+    let lalagyan = null;
+    let startX, startY;
+    
+    Storyboard.addEventListener('click', (e) => {
+        if (e.target.id === 'divngtextbox') {
+            
+            console.log("di siya magadd");
+            return;
+        }
+        if (e.target.className === 'del') {
+            console.log("pogi");
+            return
+            
+        }
+        if (e.target.tagName === 'TEXTAREA') {
+            return;
+        }
+        let Textarea = document.createElement('div');
+        let x = e.clientX;
+        let y = e.clientY;
+        Textarea.innerHTML = '<div class="pakalso"><button class="del">x</button></div><div><textarea placeholder="enter your text here."></textarea></div>';
+        Textarea.className = 'texbox';
+        Textarea.id='divngtextbox';
+        Textarea.style.left = x + 'px';
+        Textarea.style.top = y + 'px';
+        Textarea.style.border = 'none';
+        Storyboard.appendChild(Textarea);
+        let focos = Textarea.querySelector('textarea');
+        focos.focus();
+        
+        // Add event listeners for dragging
+        Textarea.addEventListener('mousedown', (e) => {
+            if (e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            isDragging = true;
+            lalagyan = Textarea;
+            startX = e.clientX - Textarea.offsetLeft;
+            startY = e.clientY - Textarea.offsetTop;
+        });
+        
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging && lalagyan) {
+            lalagyan.style.left = (e.clientX - startX) + 'px';
+            lalagyan.style.top = (e.clientY - startY) + 'px';
+        }
+    });
+    
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        lalagyan = null;
+    });
+    
+    const delbtn=document.querySelectorAll('del');
+    
+    
+    document.addEventListener('click', function(event){
+        if(event.target.classList.contains('del')){
+            event.target.closest('.texbox').remove();
+        };
+    });
+    
+    
+    
+    
+    
+    
+</script>
+
+</html>

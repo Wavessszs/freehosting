@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px 50px;
+            background: #E3DFE4;
+            background: linear-gradient(180deg, rgba(227, 223, 228, 1) 60%, rgb(224, 205, 195) 90%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .rightsb {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto auto;
+            gap: 10px;
+            place-items: center;
+            padding: 20px;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: black;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            height: 100px;
+            font-family: "Lora", serif;
+            font-weight: 600;
+            animation: glimmer 5s infinite alternate;
+        }
+        
+        /* Hover effect */
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .subbody {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            padding-left: 200px;
+            padding-right: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="subbody">
+        <div class="rightsb">
+            <a href="page2.html" class="btn">Javascript scripting project</a>
+            <a href="page1.html" class="btn">donut</a>
+            <a href="localstorage.html" class="btn">LOCAL</a>
+            <a href="qrcode.html" class="btn">qrcode</a>
+        </div></div>
+    </body>
+    </html>
